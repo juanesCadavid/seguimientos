@@ -1,0 +1,15 @@
+#navbar{
+    background-color:#1b7b70 ;
+    height: 40px;
+    font-size: 13px;
+}
+#nav-tab{
+    background-color:rgb(242, 244, 244); 
+    color: black;
+}
+
+.dropdown-menu[data-bs-popper] {
+    top: 100%;
+    left: 0;
+    margin-top: -5px;
+}

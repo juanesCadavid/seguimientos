@@ -1,0 +1,23 @@
+.y-card{
+    display: flex;
+    flex-direction: column;
+    margin: 0;
+  }
+  .y-card-header{
+    order: 1;
+  }
+  .y-card-body{
+    flex-grow: 1;
+    order: 2;
+    overflow: auto;
+    margin: 0;
+  
+  }
+  .y-card-footer{
+    order: 3;
+    border-top: 1px solid rgb(204, 202, 202);
+    padding: 10px;
+    background-color: rgb(233, 232, 232);
+    
+  }
+  

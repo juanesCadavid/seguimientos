@@ -1,0 +1,190 @@
+<div class="y-card" style="height: 100%; width: 100%;">
+    <div class="y-card-header">
+        <div class="row">
+            <div class="col-md-12" id="">
+                <button id="button" type="button" class="btn btn-secondary" data-bs-toggle="modal"
+                    data-bs-target="#staticBackdrop">
+                    <i class="fas fa-user-plus"></i> Nuevo
+                </button>
+            </div>
+        </div>
+    </div>
+    <div class="y-card-body" style="overflow: hidden; padding: 5px;">
+
+        <p-table [value]="Usuario" styleClass="p-datatable-sm  p-datatable-gridlines" [scrollable]="true"
+            scrollHeight="flex" tableStyleClass="prime-table" selectionMode="single" dataKey="code"
+            (onRowSelect)="onRowSelect($event,modUsuario)">
+            <ng-template pTemplate="header">
+                <tr tableStyleClass="header">
+                    <th>Cedula</th>
+                    <th>Nombres</th>
+                    <th>Apellidos</th>
+                    <th>Correo</th>
+                    <th>Telefono</th>
+                    <th>Perfil</th>
+                    <th></th>
+
+                </tr>
+            </ng-template>
+            <ng-template pTemplate="body" let-data>
+                <tr [pSelectableRow]="data">
+                    <td style="width:16%">{{data.ID_REGISTRO}}</td>
+                    <td style="width:16%">{{data.Nombres}}</td>
+                    <td style="width:16%">{{data.Apellidos}}</td>
+                    <td style="width:16%">{{data.Correo}}</td>
+                    <td style="width:16%">{{data.Telefono}}</td>
+                    <td style="width:16%">{{data.DESCRIPCION}}</td>
+                    <td style="width:4%;" (click)=eliminarUsuario(data.ID_REGISTRO)><i class="fas fa-trash-alt"></i>
+                    </td>
+                </tr>
+            </ng-template>
+        </p-table>
+
+        <!-- Modal -->
+        <div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
+            aria-labelledby="staticBackdropLabel" aria-hidden="true">
+            <div class="modal-dialog modal-lg">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="staticBackdropLabel">Digite la informacion del usuario</h5>
+                        <button type="button" class="btn-close" (click)="nuevo()" data-bs-dismiss="modal"
+                            aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        <!-- <div>Digite la informacion del usuario</div> -->
+                        <div class="row">
+                            <div class="input-group mb-3" style="justify-content: space-evenly;">
+                                <div class="col-md-5">
+                                    <label for="">Cedula:</label>
+                                    <input type="number" class="form-control" name="registro.ID_REGISTRO"
+                                        [(ngModel)]="registro.ID_REGISTRO"
+                                        [ngClass]="{'is-invalid': err_cedula == false }"
+                                        (change)="aprobarCC(registro.ID_REGISTRO)">
+                                </div>
+                                <div class="col-md-5">
+                                    <label for="">Nombres:</label>
+                                    <input type="text" class="form-control" name="registro.Nombres"
+                                        [(ngModel)]="registro.Nombres"
+                                        [ngClass]="{'is-invalid': err_nombres == false }"
+                                        (change)="aprobarnombres(registro.Nombres)">
+                                </div>
+                            </div>
+                            <div class="input-group mb-3" style="justify-content: space-evenly;">
+                                <div class="col-md-5">
+                                    <label for="">Apellidos:</label>
+                                    <input type="text" class="form-control" name="registro.Apellidos"
+                                        [(ngModel)]="registro.Apellidos"
+                                        [ngClass]="{'is-invalid': err_apellidos == false }"
+                                        (change)="aprobarapellidos(registro.Apellidos)">
+                                </div>
+                                <div class="col-md-5">
+                                    <label for="">Correo:</label>
+                                    <input type="text" class="form-control" name="registro.Correo"
+                                        [(ngModel)]="registro.Correo"
+                                        [ngClass]="{'is-invalid': err_correo == false }"
+                                        (change)="aprobarcorreo(registro.Correo)">
+                                </div>
+                            </div>
+                            <div class="input-group mb-3" style="justify-content: space-evenly;">
+                                <div class="col-md-5">
+                                    <label for="">Telefono:</label>
+                                    <input type="text" class="form-control" name="registro.Telefono"
+                                        [(ngModel)]="registro.Telefono">
+                                </div>
+
+                                <div class="col-md-5">
+                                    <label for="" class="form-label">Perfil:</label>
+                                    <select class="form-select" name="usuario.ID_PERFIL"
+                                        [(ngModel)]="usuario.ID_PERFIL"
+                                        [ngClass]="{'is-invalid': err_perfil == false }"
+                                        (change)="aprobarperfil(usuario.ID_PERFIL)">
+                                        <option *ngFor='let perfil of perfil' [ngValue]="perfil.DESCRIPCION"
+                                            [ngValue]="perfil.ID_PERFIL">{{perfil.DESCRIPCION}}</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="input-group mb-3" style="justify-content: space-evenly;">
+                                <div class="col-md-5">
+                                    <label for="">Usuario:</label>
+                                    <input type="text" class="form-control" name="usuario.USUARIO"
+                                        [(ngModel)]="usuario.USUARIO"
+                                        [ngClass]="{'is-invalid': err_usuario == false }"
+                                        (change)="aprobarusuario(usuario.USUARIO)">
+                                </div>
+                                <div class="col-md-5">
+                                    <label for="">Contraseña:</label>
+                                    <input type="text" class="form-control" name="usuario.Contrasena"
+                                        [(ngModel)]="usuario.Contrasena"
+                                        [ngClass]="{'is-invalid': err_contrasena == false }"
+                                        (change)="aprobarcontrasena(usuario.Contrasena)">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-danger" (click)="nuevo()"
+                            data-bs-dismiss="modal">Cancelar</button>
+                        <button type="button" class="btn btn-primary" (click)="registrar()"><i
+                                class="fas fa-user-plus"></i> Crear</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+    <!-- <div class="y-card-footer" style="padding: 0px;">
+        <p-paginator [rows]="rows" [totalRecords]="totalRecords" (onPageChange)="paginador($event)"
+            [rowsPerPageOptions]="[5,10,20,30,50]"></p-paginator>
+    </div> -->
+</div>
+
+<ng-template #modUsuario let-c="close" let-d="dismiss">
+    <div class="modal-header">
+        <strong class="modal-title" id="modal-basic-title">Actualizar datos de usuario</strong>
+        <button style="background: transparent; border: transparent;" type="button" class="close" id="cerrar"
+            aria-label="Close" (click)="d('Cross click')">
+            <i class="fas fa-times"></i>
+        </button>
+    </div>
+    <div class="modal-body">
+        <!-- <div>Digite la informacion del usuario</div> -->
+        <div class="row">
+            <div class="input-group mb-3" style="justify-content: space-evenly;">
+                <div class="col-md-5">
+                    <label for="">Cedula:</label>
+                    <input type="number" name="actualizarInfo.ID_REGISTRO" class="form-control" disabled
+                        name="actualizarInfo.ID_REGISTRO" [(ngModel)]="actualizarInfo.ID_REGISTRO">
+                </div>
+                <div class="col-md-5">
+                    <label for="">Nombres:</label>
+                    <input type="text" class="form-control" name="actualizarInfo.Nombres"
+                        [(ngModel)]="actualizarInfo.Nombres">
+                </div>
+            </div>
+            <div class="input-group mb-3" style="justify-content: space-evenly;">
+                <div class="col-md-5">
+                    <label for="">Apellidos:</label>
+                    <input type="text" class="form-control" name="actualizarInfo.Apellidos"
+                        [(ngModel)]="actualizarInfo.Apellidos">
+                </div>
+                <div class="col-md-5">
+                    <label for="">Correo:</label>
+                    <input type="text" class="form-control" name="actualizarInfo.Correo"
+                        [(ngModel)]="actualizarInfo.Correo">
+                </div>
+            </div>
+            <div class="input-group mb-3">
+                <div class="col-md-5" style="margin-left: 5.5%;">
+                    <label for="">Telefono:</label>
+                    <input type="number" class="form-control" name="actualizarInfo.Telefono"
+                        [(ngModel)]="actualizarInfo.Telefono">
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="modal-footer">
+        <button type="button" class="btn btn-primary" (click)="actualizarRegistro()"><i class="fas fa-sync-alt"></i>
+            Modificar</button>
+    </div>
+</ng-template>

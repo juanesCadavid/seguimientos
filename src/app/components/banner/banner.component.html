@@ -1,0 +1,22 @@
+<div id="container" style="display: flex;">
+    <div>
+        <img id="fondo1" src="../assets/LOGO_PROCEX.png" alt="">
+        <img src="../assets/marco5.png"  alt="" id="rayas">
+    </div>
+    <div id="sigires">Seguimientos</div>
+    <img id="imagena" src="../assets/bannerf.jpeg" alt="">
+    <div id="informacion">
+        <div id="infoBanner"><b>Usuario:</b>
+            <p *ngFor='let datosUsuario of datosUsuario'>{{datosUsuario.Nombres}} {{datosUsuario.Apellidos}}</p>
+        </div>
+        <div id="infoBanner"><b>Perfil:</b>
+            <p *ngFor='let datosUsuario of datosUsuario'> {{datosUsuario.DESCRIPCION}}</p>
+        </div>
+        <div id="infoBanner"><b>Fecha y Hora:</b>
+            <p> {{today | date:'yyyy-MM-dd'}} - {{today |
+                date:'h:mm '}}</p>
+        </div>
+    </div>
+    <button type="button" class="btn btn-outline-success"  (click)="logout()" id="salir">Salir <i (click)="logout()" style="font-size: 16px;"
+            class="fas fa-sign-out-alt"></i></button>
+</div>

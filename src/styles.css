@@ -1,0 +1,125 @@
+/* You can add global styles to this file, and also import other style files */
+
+html, body { height: 100% !important}
+body { overflow: auto; margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+
+.y-card{
+    display: flex;
+    flex-direction: column;
+    margin: 0;
+  }
+  .y-card-header{
+    order: 1;
+  }
+  .y-card-body{
+    flex-grow: 1;
+    order: 2;
+    overflow: auto;
+    margin: 0;
+  
+  }
+  .y-card-footer{
+    order: 3;
+    border-top: 1px solid rgb(204, 202, 202);
+    padding: 10px;
+    background-color: rgb(233, 232, 232);
+    
+  }
+  .prime-table{
+    text-align: center;
+    font-size: 11px;
+  }
+
+
+  .prime-table tbody tr td{
+    padding: 2px 0.5rem !important;
+  } 
+  .componenty .p-fileupload-buttonbar{
+    padding: 5px !important;
+    border: none !important;
+    background: transparent !important;
+  }
+  
+  .componenty .p-fileupload-buttonbar .p-button{
+    /* width: 150px; */
+    padding: 5px !important;
+  }
+  
+  .componenty .p-fileupload-buttonbar .p-button .p-button-label{
+    font-size: 10px;
+  }
+  
+  .componenty .p-fileupload-buttonbar .p-button .p-button-icon{
+    font-size: 10px;
+  }
+  
+  .componenty .p-fileupload-content{
+    border: 2px dashed #4e92ce !important;
+    height: 30px;
+  }
+  .componenty .p-fileupload-content .ng-star-inserted .ng-star-inserted .ng-star-inserted{
+    background-color: rgb(144, 229, 238);
+    height: 100% !important;
+    width: 100%  !important ;
+    position: absolute;
+    top: 0;
+    left: 0;
+  }
+
+  .componenty .p-fileupload-content .ng-star-inserted .ng-star-inserted .ng-star-inserted div:first-child{
+    display: none;
+  }
+
+  .componenty .p-fileupload-content .ng-star-inserted .ng-star-inserted .ng-star-inserted div{
+    font-size: 11px;
+  }
+  .componenty .p-fileupload-content .ng-star-inserted .ng-star-inserted .ng-star-inserted .p-button-icon-only{
+    background: #e04e4e;
+    border-radius: 50%;
+    height: 30px;
+    width: 30px;
+    font-size: 12px;
+    border-color: #e04e4e;
+  }
+
+  .Porcentaje{
+    width: 72px;
+    height: 72px;
+    margin-top: 20px;
+    margin-left: 25px;
+  }
+  .p-datatable-sm{
+    height: 10px;
+}
+
+
+.cerrado{
+  background-color: #b0e4e2!important;
+  color: black !important;
+}
+
+.pendiente{
+  background-color: #f2ce9e !important;
+  color: black !important;
+}
+
+.Proceso{
+  background-color:#d3c8f2!important;
+  color: black !important;
+}
+
+.sinAsignar{
+  background-image:rgba(245, 245, 245, 0.692) !important;
+  color: black !important;
+}
+
+.p-datatable.p-datatable-gridlines .p-datatable-thead > tr > th {
+  border-width: 0px 0px 0px !important;
+  border-color: black !important;
+  background-color: #1b7b70;
+  color: white;
+}
+
+.p-datatable.p-datatable-gridlines .p-datatable-tbody > tr > td {
+  border-width:0px 0px 1px 1px !important ;
+}

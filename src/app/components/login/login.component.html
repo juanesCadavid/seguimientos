@@ -1,0 +1,122 @@
+<div id="container">
+    <div id="login">
+        <div style="    text-align: center; color: white;
+        font-size: 50px;"><i class="fas fa-user"></i></div>
+
+        <div id="tituloL">Bienvenido</div>
+        <div id="contenido2">
+            <div style="text-align: center;">
+
+                <div class="form-floating , campos">
+                    <input type="text" class="form-control" id="floatingInput" placeholder="text" name="usuario.USUARIO"
+                        [(ngModel)]="usuario.USUARIO">
+                    <label for="floatingInput">Usuario</label>
+                </div>
+                <div class="form-floating , campos">
+                    <input type="password" (keyup)="pressEnter($event)" class="form-control" id="floatingPassword"
+                        placeholder="Password" name="usuario.Contrasena" [(ngModel)]="usuario.Contrasena">
+                    <label for="floatingPassword">Contraseña</label>
+                </div>
+                <div class="campos">
+                    <button type="button" class="btn btn-primary" style="width: 100%"
+                        (click)="Iniciarsesion()">Ingresar</button>
+                </div>
+            </div>
+
+        </div>
+        <div style="text-align: center;">
+            <button type="button" class="btn btn-link" style="color: white;" data-bs-toggle="modal"
+                data-bs-target="#exampleModal">Cambiar
+                contraseña</button>
+
+            <div style="text-align: center;">
+                <button type="button" class="btn btn-link" style="color: white; margin-top: -13px;"
+                    data-bs-toggle="modal" data-bs-target="#exampleModal2">Reset
+                    contraseña</button>
+
+
+                <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel"
+                    aria-hidden="true">
+                    <div class="modal-dialog">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h5 class="modal-title" id="exampleModalLabel">Cambiar contraseña</h5>
+                                <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                    aria-label="Close"></button>
+                            </div>
+                            <div class="modal-body">
+                                <div class="col-md-12">
+
+                                    <h3 style="text-align: initial;">Por favor diligencie la información
+                                        solicitada a continuación para el cambio de su contraseña:</h3>
+                                    <div class="form-floating , cambioC">
+                                        <input type="text" class="form-control" id="floatingPassword"
+                                            placeholder="Usuario"  [(ngModel)]="newDatos2.USUARIO">
+                                        <label for="floatingPassword">Usuario:</label>
+                                    </div>
+                                    <div class="form-floating , cambioC">
+                                        <input type="password" class="form-control" id="floatingPassword"
+                                            placeholder="Password"  [(ngModel)]="newDatos2.Contrasena">
+                                        <label for="floatingPassword">Contraseña actual:</label>
+                                    </div>
+                                    <div class="form-floating , cambioC">
+                                        <input type="password" class="form-control" id="floatingPassword"
+                                            placeholder="Password"  [(ngModel)]="newDatos2.Contrasena1">
+                                        <label for="floatingPassword">Contraseña nueva:</label>
+                                    </div>
+                                    <div class="form-floating , cambioC">
+                                        <input  [(ngModel)]="newDatos2.newDatos" type="password" class="form-control" id="floatingPassword"
+                                            placeholder="Password">
+                                        <label for="floatingPassword">Confirmar contraseña nueva:</label>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-danger" (click)="limpiar2()" data-bs-dismiss="modal">Cancelar</button>
+                                <button type="button" (click)="cambiarContrasena()" class="btn btn-primary" >Cambiar contraseña</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+
+
+                <div class="modal fade" id="exampleModal2" tabindex="-1" aria-labelledby="exampleModalLabel"
+                    aria-hidden="true">
+                    <div class="modal-dialog">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h5 class="modal-title" id="exampleModalLabel">Resetear contraseña</h5>
+                                <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                    aria-label="Close"></button>
+                            </div>
+                            <div class="modal-body">
+                                <div class="col-md-12">
+
+                                    <h3 style="text-align: initial;">Por favor diligencie la información
+                                        solicitada a continuación para resetear su contraseña:</h3>
+                                    <div class="form-floating , cambioC">
+                                        <input type="text" class="form-control" name="newDatos.USUARIO"
+                                            [(ngModel)]="newDatos.USUARIO" id="floatingPassword" placeholder="Usuario">
+                                        <label for="floatingPassword">Usuario:</label>
+                                    </div>
+                                    <div class="form-floating , cambioC">
+                                        <input type="text" class="form-control" name="newDatos.Correo"
+                                            [(ngModel)]="newDatos.Correo" id="floatingPassword" placeholder="Correo">
+                                        <label for="floatingPassword">Correo:</label>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-danger" (click)="limpiar()"
+                                    data-bs-dismiss="modal">Cancelar</button>
+                                <button type="button" (click)="resetContrasena()" class="btn btn-primary">Reset
+                                    contraseña</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>

@@ -1,0 +1,267 @@
+<div class="y-card" style="height: 100%; width: 100%; " >
+    <div class="y-card-header">
+        <div class="row">
+            <div class="col-md-12" id="">
+                <i class="fas fa-arrow-circle-left" (click)="redireccionar()"
+                    style="margin-top: 10px; margin-left: 15px; font-size: 25px; color: #1b7b70;cursor: pointer;"></i>
+                <button id="button" type="button" [disabled]="isReadonly" class="btn btn-success"
+                    (click)="cerrarcaso()">
+                    <i class="fas fa-folder-plus"> Cerrar caso</i>
+                </button>
+
+                <button id="button" type="button" [disabled]="isReadonly" (click)="open(content)"
+                    class="btn btn-secondary">
+                    <i class="fas fa-folder-plus"> Nueva gestión</i>
+                </button>
+                <button type="button" (click)="actualizarSeguimiento()"
+                    *ngIf='loginservice.isAdminD || loginservice.isAdminJ || loginservice.isAdmin'
+                    style="margin-right: 30px; margin-top: 5px; " id="button" class="btn btn-primary"><i
+                        class="fas fa-sync-alt"></i> Actalizar Seguimiento</button>
+            </div>
+        </div>
+   
+        <div class="row" style="margin-right: 1%;margin-left: 1%;">
+            <div class="col-md-2">
+                <label id="documento" style="font-size: 12px; color: black;">Eps:</label>
+                <select [disabled]="isReadonly2" name="seguimiento1.EPS" [(ngModel)]="seguimiento1.EPS"
+                    *ngFor='let seguimiento1 of seguimiento1' class="form-control" id="documento"
+                    style="font-size: 12px;">
+                    <option *ngFor='let prestador of prestador' [ngValue]="prestador. NOMBRE_OPCION">
+                        {{prestador.NOMBRE_OPCION}}
+                    </option>
+                </select>
+            </div>
+            <div class="col-md-2">
+                <label id="documento" style="font-size: 12px; color: black;">Tipo de requerimiento:</label>
+                <select [disabled]="isReadonly2" name="seguimiento1.TIPO_REQUERIMIENTO"
+                    [(ngModel)]="seguimiento1.TIPO_REQUERIMIENTO" *ngFor='let seguimiento1 of seguimiento1'
+                    class="form-control" id="documento" style="font-size: 12px;">
+                    <option *ngFor='let tipoRequerimiento of tipoRequerimiento'
+                        [ngValue]="tipoRequerimiento.NOMBRE_OPCION">
+                        {{tipoRequerimiento.NOMBRE_OPCION}}
+                    </option>
+                </select>
+            </div>
+
+            <div class="col-md-2">
+                <label id="documento" style="font-size: 12px; color: black;">Medio:</label>
+                <select [disabled]="isReadonly2" name="seguimiento1.MEDIO" [(ngModel)]="seguimiento1.MEDIO"
+                    *ngFor='let seguimiento1 of seguimiento1' class="form-control" id="documento"
+                    style="font-size: 12px;">
+                    <option *ngFor='let medio of medio' [ngValue]="medio.NOMBRE_OPCION">
+                        {{medio.NOMBRE_OPCION}}
+                    </option>
+                </select>
+            </div>
+
+            <div class="col-md-3">
+                <label id="documento" style="font-size: 12px; color: black;">Área:</label>
+                <select [disabled]="isReadonly2" name="" class="form-control" id="documento"
+                    name="seguimiento1.ID_PERFIL" [(ngModel)]="seguimiento1.ID_PERFIL"
+                    *ngFor='let seguimiento1 of seguimiento1' style="font-size: 12px;">
+                    <option *ngFor='let perfil of perfil' [ngValue]="perfil.ID_PERFIL">
+                        {{perfil.DESCRIPCION}}
+                    </option>
+                </select>
+            </div>
+
+
+            <div class="col-md-3">
+                <label id="documento" style="font-size: 12px; color: black;">Responsable:</label>
+                <select [disabled]="isReadonly2" name="" class="form-control" id="documento"
+                    name="seguimiento1.ID_REGISTRO" [(ngModel)]="seguimiento1.ID_REGISTRO"
+                    *ngFor='let seguimiento1 of seguimiento1' style="font-size: 12px;">
+                    <option *ngFor='let responsableseguimiento of responsableseguimiento'
+                        [ngValue]="responsableseguimiento.Nombres" [ngValue]="responsableseguimiento.ID_REGISTRO">
+                        {{responsableseguimiento.Nombres}} - {{responsableseguimiento.Apellidos}}
+                    </option>
+                </select>
+            </div>
+        </div>
+
+        <div class="row" style="margin-right: 1%;margin-left: 1%;">
+            <div class="col-md-2">
+                <label id="documento" style="font-size: 12px; color: black;">Fecha de entrega:</label>
+                <div class="input-group">
+                    <div class="input-group-prepend">
+                        <span style="height: 32px;" class="input-group-text"><svg xmlns="http://www.w3.org/2000/svg"
+                                width="16" height="16" fill="currentColor" class="bi bi-calendar2-date"
+                                viewBox="0 0 16 16">
+                                <path
+                                    d="M6.445 12.688V7.354h-.633A12.6 12.6 0 0 0 4.5 8.16v.695c.375-.257.969-.62 1.258-.777h.012v4.61h.675zm1.188-1.305c.047.64.594 1.406 1.703 1.406 1.258 0 2-1.066 2-2.871 0-1.934-.781-2.668-1.953-2.668-.926 0-1.797.672-1.797 1.809 0 1.16.824 1.77 1.676 1.77.746 0 1.23-.376 1.383-.79h.027c-.004 1.316-.461 2.164-1.305 2.164-.664 0-1.008-.45-1.05-.82h-.684zm2.953-2.317c0 .696-.559 1.18-1.184 1.18-.601 0-1.144-.383-1.144-1.2 0-.823.582-1.21 1.168-1.21.633 0 1.16.398 1.16 1.23z" />
+                                <path
+                                    d="M3.5 0a.5.5 0 0 1 .5.5V1h8V.5a.5.5 0 0 1 1 0V1h1a2 2 0 0 1 2 2v11a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2V3a2 2 0 0 1 2-2h1V.5a.5.5 0 0 1 .5-.5zM2 2a1 1 0 0 0-1 1v11a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1V3a1 1 0 0 0-1-1H2z" />
+                                <path
+                                    d="M2.5 4a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-.5.5H3a.5.5 0 0 1-.5-.5V4z" />
+                            </svg></span>
+                    </div>
+                    <input [disabled]="isReadonly2" type="date" name="seguimiento1.FECHA_ENTREGA"
+                        [(ngModel)]="seguimiento1.FECHA_ENTREGA" *ngFor='let seguimiento1 of seguimiento1'
+                        class="form-control" style="font-size: 12px;"
+                        (change)="validacionFecha(seguimiento1.FECHA_ENTREGA)">
+                </div>
+            </div>
+
+            <div class="col-md-2">
+                <label id="tipo" style="font-size: 12px; color: black;">Fecha de finalizacion:</label>
+                <div class="input-group">
+                    <div class="input-group-prepend">
+                        <span style="height: 32px;" class="input-group-text"><svg xmlns="http://www.w3.org/2000/svg"
+                                width="16" height="16" fill="currentColor" class="bi bi-calendar2-date"
+                                viewBox="0 0 16 16">
+                                <path
+                                    d="M6.445 12.688V7.354h-.633A12.6 12.6 0 0 0 4.5 8.16v.695c.375-.257.969-.62 1.258-.777h.012v4.61h.675zm1.188-1.305c.047.64.594 1.406 1.703 1.406 1.258 0 2-1.066 2-2.871 0-1.934-.781-2.668-1.953-2.668-.926 0-1.797.672-1.797 1.809 0 1.16.824 1.77 1.676 1.77.746 0 1.23-.376 1.383-.79h.027c-.004 1.316-.461 2.164-1.305 2.164-.664 0-1.008-.45-1.05-.82h-.684zm2.953-2.317c0 .696-.559 1.18-1.184 1.18-.601 0-1.144-.383-1.144-1.2 0-.823.582-1.21 1.168-1.21.633 0 1.16.398 1.16 1.23z" />
+                                <path
+                                    d="M3.5 0a.5.5 0 0 1 .5.5V1h8V.5a.5.5 0 0 1 1 0V1h1a2 2 0 0 1 2 2v11a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2V3a2 2 0 0 1 2-2h1V.5a.5.5 0 0 1 .5-.5zM2 2a1 1 0 0 0-1 1v11a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1V3a1 1 0 0 0-1-1H2z" />
+                                <path
+                                    d="M2.5 4a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-.5.5H3a.5.5 0 0 1-.5-.5V4z" />
+                            </svg></span>
+                    </div>
+                    <input type="date" readonly="true" name="seguimiento1.FECHA_FINALIZACION"
+                        [(ngModel)]="seguimiento1.FECHA_FINALIZACION" class="form-control"
+                        *ngFor='let seguimiento1 of seguimiento1' style="font-size: 12px;">
+                </div>
+            </div>
+
+            <div class="col-md-2">
+                <label id="documento" style="font-size: 12px; color: black;">Categoría:</label>
+                <select [disabled]="isReadonly2" name="seguimiento1.Categoria" [(ngModel)]="seguimiento1.Categoria"
+                    *ngFor='let seguimiento1 of seguimiento1' class="form-control" id="documento"
+                    style="font-size: 12px;">
+                    <option *ngFor='let categoria of categoria' [ngValue]="categoria.NOMBRE_OPCION">
+                        {{categoria.NOMBRE_OPCION}}
+                    </option>
+                </select>
+            </div>
+
+            <div class="col-md-6">
+                <label id="documento" style="font-size: 12px; color: black;">Titulo:</label>
+                <input [disabled]="isReadonly2" name="seguimiento1.TITULO_REQUERIMIENTO"
+                    [(ngModel)]="seguimiento1.TITULO_REQUERIMIENTO" *ngFor='let seguimiento1 of seguimiento1'
+                    maxlength="50" type="text" class="form-control " id="documento" style="font-size: 12px;">
+            </div>
+        </div>
+
+        <div class="row" style="margin-right: 1%;margin-left: 1%;">
+            <div class="col-md-6">
+                <label style="font-size: 12px; color: black;">Descripcion</label>
+                <textarea [disabled]="isReadonly2" style="height: 50PX;" class="form-control" id="" cols="30" rows="10"
+                    name="" class="form-control" id="documento" *ngFor='let seguimiento1 of seguimiento1'
+                    name="seguimiento1.DESCRIPCION_REQUERIMIENTO"
+                    [(ngModel)]="seguimiento1.DESCRIPCION_REQUERIMIENTO"></textarea>
+            </div>
+
+            <div class="col-md-6">
+                <label style="font-size: 12px; color: black;">Área de validacion</label>
+                <textarea [disabled]="isReadonly2" style="height: 50PX;" class="form-control" id="" cols="30" rows="10"
+                    *ngFor='let seguimiento1 of seguimiento1' name="seguimiento1.AREA_VALIDACION"
+                    [(ngModel)]="seguimiento1.AREA_VALIDACION"></textarea>
+            </div>
+        </div>
+    </div>
+    <div class="y-card-body" style="padding: 5px;">
+        <p-table [value]="gestionSeguimiento" styleClass="p-datatable-sm p-datatable-gridlines"
+            tableStyleClass="prime-table" selectionMode="single" dataKey="code" [scrollable]="true" scrollHeight="flex"
+            (onRowSelect)="onRowSelect($event,contentUpdate)">
+            <ng-template pTemplate="header">
+                <tr tableStyleClass="header">
+                    <th >Fecha Creacion</th>
+                    <th >Usuario Creación</th>
+                    <th >Descripcion</th>
+                    <th >Comentarios</th>
+                    <th >Soportes</th>
+                </tr>
+            </ng-template>
+            <ng-template pTemplate="body" let-data>
+                <tr [ngClass]="{'cerrado': data.ESTADO === 'Realizado', 'pendiente': data.ESTADO === 'Pendiente' }"
+                    [pSelectableRow]="data">
+                    <td>{{data.FECHA_CREACION | date:"dd/MM/yyyy HH:mm:ss"}}</td>
+                    <td>{{data.USUARIO_CREACION}}</td>
+                    <td>{{data.DESCRIPCION}}</td>
+                    <td>{{data.Comentarios}}</td>
+                    <td [routerLink]="['/Soporte/'+data.ID_GESTION_SEGUIMIENTO]"><i class="fas fa-folder-open"></i></td>
+                </tr>
+            </ng-template>
+        </p-table>
+    </div>
+
+    <div class="y-card-footer" style="padding: 0px;">
+        <p-paginator [rows]="rows" [totalRecords]="totalRecords" (onPageChange)="paginador($event)"
+            [rowsPerPageOptions]="[5,10,20,30,50]"></p-paginator>
+    </div>
+</div>
+
+
+<ng-template #content let-c="close" let-d="dismiss">
+    <div class="modal-header">
+        <h4 class="modal-title" id="modal-basic-title">Estado del seguimiento</h4>
+        <button style="background: transparent; border: transparent;" type="button" class="close" id="cerrar"
+            aria-label="Close" (click)="nuevo()" (click)="d('Cross click')">
+            <i class="fas fa-times"></i>
+        </button>
+    </div>
+    <div class="modal-body">
+        <div class="row">
+            <div>
+                <label for="" class="form-label">Descripción:</label>
+                <textarea name="gestionseguimiento.DESCRIPCION" [(ngModel)]="gestionseguimiento.DESCRIPCION"
+                    class="form-control" rows="3"></textarea>
+            </div>
+        </div>
+
+        <br>
+        <strong class="modal-title" id="modal-basic-title">Carga de soportes </strong>
+
+        <form>
+            <div class="row">
+                <div class="col-md-6">
+                    <select name="tipo_archivo" id="" class="form-control" [(ngModel)]="tipo_archivo">
+                        <option value="">Seleccione tipo</option>
+                        <option value="Imagen">Imagen</option>
+                        <option value="PDF">Pdf</option>
+                    </select>
+                </div>
+                <div class="col-md-6">
+                    <label for="guardar" id="cargarArchivo"> <i class="fas fa-folder-open"></i> Seleccionar
+                        archivo</label>
+                    <input style="display: none;" id="guardar" type="file"
+                        accept="image/gif, image/png, image/jpeg, application/pdf" (change)="onphotoselected($event)">
+                </div>
+            </div>
+        </form>
+    </div>
+    <div class="modal-footer">
+        <button type="button" class="btn btn-primary" [disabled]="isReadonly" (click)="c('Save click')"
+            (click)="guardarGestion()"><i class="fas fa-save"></i> Guardar Gestion</button>
+    </div>
+</ng-template>
+
+<ng-template #contentUpdate let-c="close" let-d="dismiss">
+    <div class="modal-header">
+        <h4 class="modal-title" id="modal-basic-title">Estado del seguimiento</h4>
+        <button type="button" class="btn btn-light" style="background: transparent; border: transparent;"
+            aria-label="Close" (click)="d('Cross click')">
+            <i class="fas fa-times"></i>
+        </button>
+    </div>
+    <div class="modal-body">
+        <div class="row">
+            <div class="col-md-6">
+                <label for="" class="form-label">Descripción:</label>
+                <textarea name="seguimiento2.DESCRIPCION" [disabled]="isReadonly3"
+                    [(ngModel)]="seguimiento2.DESCRIPCION" class="form-control" rows="3"></textarea>
+            </div>
+
+            <div class="col-md-6">
+                <label for="" class="form-label">Comentarios:</label>
+                <textarea name="seguimiento2.Comentarios" [disabled]="isReadonly2"
+                    [(ngModel)]="seguimiento2.Comentarios" class="form-control" rows="3"></textarea>
+            </div>
+
+        </div>
+    </div>
+    <div class="modal-footer">
+        <button type="button" [disabled]="isReadonly" class="btn btn-primary" (click)="c('Save click')"
+            (click)="editarSeguimiento()"><i class="fas fa-save"></i> Guardar Gestion</button>
+    </div>
+</ng-template>

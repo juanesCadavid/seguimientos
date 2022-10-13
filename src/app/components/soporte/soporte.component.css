@@ -1,0 +1,21 @@
+#button{
+    float: right;
+    margin-right: 30px;
+    margin-top: 5px;
+    font-size: 12px;
+}
+
+#cargarArchivo{
+    font-size: 14px;
+    font-weight: 600;
+    color: #fff;
+    background-color: #106BA0;
+    display: inline-block;
+    transition: all .5s;
+    cursor: pointer;
+    padding: 9px 20px !important;
+    text-transform: uppercase;
+    width: fit-content;
+    text-align: center;
+    border-radius: .25rem;
+}

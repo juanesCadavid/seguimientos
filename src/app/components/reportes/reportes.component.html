@@ -1,0 +1,134 @@
+<div class="y-card" style="height: 100%; width: 100%;">
+    <div class="y-card-header">
+        <div class="row">
+            <div class="col-md-12" id="">
+                <i class="fas fa-arrow-circle-left " [routerLink]="['/Seguimientos-listar']"
+                    style="margin-top: 10px; margin-left: 15px; font-size: 25px; color: #1b7b70;cursor: pointer;"></i>
+                <h2
+                    style="position: center;  font-family: 'Hind Madurai', sans-serif; text-align: center; margin-top: -8px;">
+                    Resumen de casos por Área</h2>
+            </div>
+
+        </div>
+    </div>
+
+    <div class="y-card-body" style="    overflow-x: hidden;  overflow-y: auto;">
+        <br>
+        <div class="row">
+            <div class="col-md-4">
+                <table>
+                    <tr>
+                        <td>
+                            <h5
+                                style="text-align: left; font-family: 'Hind Madurai', sans-serif; margin-top: 3px; margin-right: 11px; margin-left: 38px;">
+                                Desarrollo </h5>
+                        </td>
+                        <td style="width: 63%; margin-left: 3px;"> <select name=""
+                                class="form-control" id="documento" name="seguimiento1.ID_REGISTRO"
+                                style="font-size: 12px;" name="ID_REGISTRO" [(ngModel)]="ID_REGISTRO" (change)="cargarReporteDesarrollo()">
+                                <option *ngFor='let responsableseguimientoDesa of responsableseguimientoDesa'
+                                    [ngValue]="responsableseguimientoDesa.Nombres"
+                                    [ngValue]="responsableseguimientoDesa.ID_REGISTRO">
+                                    {{responsableseguimientoDesa.Nombres}} - {{responsableseguimientoDesa.Apellidos}}
+                                </option>
+                            </select></td>
+                    </tr>
+                </table>
+                <ngx-charts-bar-vertical [view]="view" [results]="desarrollo" [customColors]="customColors"
+                    [gradient]="gradient" [xAxis]="showXAxis" [yAxis]="showYAxis" [legend]="showLegend"
+                    [legendTitle]="legendTitle" [showXAxisLabel]="showXAxisLabel" [showYAxisLabel]="showYAxisLabel"
+                    [xAxisLabel]="xAxisLabel" [yAxisLabel]="yAxisLabel" (select)="onSelect($event)">
+                </ngx-charts-bar-vertical>
+            </div>
+            
+            <div class="col-md-4">
+                <table>
+                    <tr>
+                        <td>
+                            <h5
+                                style="text-align: left; font-family: 'Hind Madurai', sans-serif; margin-top: 3px; margin-right: 11px; margin-left: 48px;">
+                                Analistas </h5>
+                        </td>
+                        <td style="width: 63%; margin-left: 3px;"> <select name=""
+                                class="form-control" id="documento" name="seguimiento1.ID_REGISTRO"
+                                style="font-size: 12px;" name="ID_REGISTROANALISTA" [(ngModel)]="ID_REGISTROANALISTA" (change)="cargarReporteAnalistas()">
+                                <option *ngFor='let responsableseguimientoAnalist of responsableseguimientoAnalist'
+                                    [ngValue]="responsableseguimientoAnalist.Nombres"
+                                    [ngValue]="responsableseguimientoAnalist.ID_REGISTRO">
+                                    {{responsableseguimientoAnalist.Nombres}} - {{responsableseguimientoAnalist.Apellidos}}
+                                </option>
+                            </select></td>
+                    </tr>
+                </table>
+                <ngx-charts-bar-vertical [view]="view" [customColors]="customColors" [results]="analista"
+                    [gradient]="gradient" [xAxis]="showXAxis" [yAxis]="showYAxis" [legend]="showLegend"
+                    [legendTitle]="legendTitle" [showXAxisLabel]="showXAxisLabel" [showYAxisLabel]="showYAxisLabel"
+                    [xAxisLabel]="xAxisLabel" [yAxisLabel]="yAxisLabel" (select)="onSelect($event)">
+                </ngx-charts-bar-vertical>
+            </div>
+
+            <div class="col-md-4">
+                <table>
+                    <tr>
+                        <td>
+                            <h5
+                                style="text-align: left; font-family: 'Hind Madurai', sans-serif; margin-top: 3px; margin-right: 11px; margin-left: 48px;">
+                                Soporte </h5>
+                        </td>
+                        <td style="width: 63%; margin-left: 3px;"> <select name=""
+                                class="form-control" id="documento" name="seguimiento1.ID_REGISTRO"
+                                style="font-size: 12px;" name="ID_REGISTROSOPORTE" [(ngModel)]="ID_REGISTROSOPORTE" (change)="cargarReporteSoporte()">
+                                <option *ngFor='let responsableseguimientoSoport of responsableseguimientoSoport'
+                                    [ngValue]="responsableseguimientoSoport.Nombres"
+                                    [ngValue]="responsableseguimientoSoport.ID_REGISTRO">
+                                    {{responsableseguimientoSoport.Nombres}} - {{responsableseguimientoSoport.Apellidos}}
+                                </option>
+                            </select></td>
+                    </tr>
+                </table>
+                <ngx-charts-bar-vertical [view]="view" [customColors]="customColors" [results]="soporte"
+                    [gradient]="gradient" [xAxis]="showXAxis" [yAxis]="showYAxis" [legend]="showLegend"
+                    [legendTitle]="legendTitle" [showXAxisLabel]="showXAxisLabel" [showYAxisLabel]="showYAxisLabel"
+                    [xAxisLabel]="xAxisLabel" [yAxisLabel]="yAxisLabel" (select)="onSelect($event)">
+                </ngx-charts-bar-vertical>
+            </div>
+        </div>
+
+        <br>
+
+        <div class="row">
+            <div class="col-md-4">
+                <h4 style="text-align: center;  font-family: 'Hind Madurai', sans-serif; ">Coordinador soporte</h4>
+                <ngx-charts-bar-vertical [view]="view" [results]="coorSoporte" [customColors]="customColors"
+                    [gradient]="gradient" [xAxis]="showXAxis" [yAxis]="showYAxis" [legend]="showLegend"
+                    [legendTitle]="legendTitle" [showXAxisLabel]="showXAxisLabel" [showYAxisLabel]="showYAxisLabel"
+                    [xAxisLabel]="xAxisLabel" [yAxisLabel]="yAxisLabel" (select)="onSelect($event)">
+                </ngx-charts-bar-vertical>
+            </div>
+
+
+            <div class="col-md-4">
+                <h4 style="text-align: center;  font-family: 'Hind Madurai', sans-serif; ">Directora de proyetos</h4>
+                <ngx-charts-bar-vertical [view]="view" [customColors]="customColors" [results]="adminJ"
+                    [gradient]="gradient" [xAxis]="showXAxis" [yAxis]="showYAxis" [legend]="showLegend"
+                    [legendTitle]="legendTitle" [showXAxisLabel]="showXAxisLabel" [showYAxisLabel]="showYAxisLabel"
+                    [xAxisLabel]="xAxisLabel" [yAxisLabel]="yAxisLabel" (select)="onSelect($event)">
+                </ngx-charts-bar-vertical>
+            </div>
+
+            <div class="col-md-4">
+                <h4 style="text-align: center;  font-family: 'Hind Madurai', sans-serif; ">Director de negocios</h4>
+                <ngx-charts-bar-vertical [view]="view" [customColors]="customColors" [results]="adminD"
+                    [gradient]="gradient" [xAxis]="showXAxis" [yAxis]="showYAxis" [legend]="showLegend"
+                    [legendTitle]="legendTitle" [showXAxisLabel]="showXAxisLabel" [showYAxisLabel]="showYAxisLabel"
+                    [xAxisLabel]="xAxisLabel" [yAxisLabel]="yAxisLabel" (select)="onSelect($event)">
+                </ngx-charts-bar-vertical>
+            </div>
+
+        </div>
+    </div>
+
+    <div class="y-card-footer" style="padding: 0px;">
+
+    </div>
+</div>

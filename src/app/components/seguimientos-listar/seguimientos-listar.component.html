@@ -1,0 +1,464 @@
+<div class="y-card" style="height: 100%; width: 100%;">
+    <div class="y-card-header">
+        <div class="row">
+            <div class="col-md-6" id="">
+                <img src="../../../assets/graficos.png" style="margin-left: 5px; margin-top: 8px; cursor: pointer;"
+                    [routerLink]="['/reportes']" alt="">
+
+                <img src="../../../assets/icons8-export-excel-48.png" (click)="exportExcel()"
+                    style="margin-left: -2px; margin-top: 8px; cursor: pointer; width: 39px; height: 39px;" alt="">
+            </div>
+
+
+            <div class="col-md-3">
+                <div class="reporte" style=" float: right; margin-right: -192px;">
+                    <strong id="strong">Estado y totalidad de casos</strong>
+                    <table>
+                        <tr *ngFor='let reporte of reporte'>
+                            <td>
+                                <button
+                                    style="background-color: #b0e4e2; color: black; border: none; font-size: 13px;">Realizado
+                                    - {{reporte.Realizados}}</button>
+                            </td>
+                            <td>
+                                <button
+                                    style="border: none; background-color: #f2ce9e;  color: black; font-size: 13px;">Pendiente
+                                    {{reporte.Pendientes}}</button>
+                            </td>
+                            <td>
+                                <button
+                                    style="border: none; background-color: #d3c8f2; color: black; font-size: 13px;">En
+                                    proceso {{reporte.Proceso}}</button>
+                            </td>
+
+                            <td>
+                                <button
+                                    style="border: none; background-color: rgba(245, 245, 245, 0.692); color: black; font-size: 13px;">Sin
+                                    asignar {{reporte.sinAsignar}}</button>
+                            </td>
+                        </tr>
+                    </table>
+                </div>
+            </div>
+
+            <div class="col-md-3" id="">
+                <button id="button" style="margin-top: 20px;" type="button" (click)="formulario(content5)"
+                    class="btn btn-secondary">
+                    <i class="fas fa-folder-plus"></i> Nuevo
+                </button>
+            </div>
+
+        </div>
+    </div>
+    <div class="y-card-body" style="overflow: hidden; padding: 5px;">
+
+        <p-table [value]="cargaseguimiento" styleClass="p-datatable-sm p-datatable-gridlines"
+            tableStyleClass="prime-table" selectionMode="single" dataKey="code" [scrollable]="true" scrollHeight="flex"
+            (onRowSelect)="onRowSelect($event,content)">
+            <ng-template pTemplate="header">
+                <tr tableStyleClass="header">
+                    <th style="flex: 0.1; justify-content: space-around;">#</th>
+                    <th style=" color: white; ">EPS <i class={{epsFiltro}} style="cursor: pointer;"
+                            (click)="filtroEps(content1)"> </i> </th>
+                    <th style=" color: white;  width: 10%;">F. Requerimiento</th>
+                    <th style=" color: white; width: 9%;">T.Requerimiento <i class={{requerimientoFiltro}}
+                            style="cursor: pointer;" (click)="filtroTiporequerimiento(content2)"> </i></th>
+                    <th style=" color: white;  width: 9%;">Titulo  <i class={{tituloRequerimientoFiltro}}
+                        style="cursor: pointer;" (click)="tituloRequerimiento(content8)"> </i></th>
+                    <th style=" color: white;">A. validacion</th>
+                    <th style=" color: white;">Estado<i class={{estadoFiltro}} style="cursor: pointer;"
+                            (click)="filtroEstado(content3)"></i> </th>
+                    <th style=" color: white; width: 8%;">Fecha entrega</th>
+                    <th style=" color: white; width: 10%;">Fecha Finalizacion <i class={{fechaFinFiltro}}
+                            style="cursor: pointer;" (click)="fechaFinalizacion(content7)"></i></th>
+                    <th style=" color: white; width: 150px;">Perfil</th>
+                    <th style=" color: white; width: 13%;">Responsable <i class={{responsableFiltro}}
+                            style="cursor: pointer;" (click)="filtroResponsable(content4)"></i>
+                    </th>
+                    <th style=" color: white; flex: 0.5;">Asignar R.</th>
+                </tr>
+            </ng-template>
+            <ng-template pTemplate="body" let-data let-i="rowIndex">
+                <tr [ngClass]="{'cerrado': data.ESTADO === 'Realizado', 'pendiente': data.ESTADO === 'Pendiente', 'Proceso': data.ESTADO === 'En proceso'}"
+                    [pSelectableRowDblClick]="data">
+                    <td style="flex: 0.1; justify-content: space-around;">{{i + 1}}</td>
+                    <td>{{data.EPS}}</td>
+                    <td>{{data.FECHA_REQUERIMIENTO | date:"dd/MM/yyyy"}}</td>
+                    <td>{{data.TIPO_REQUERIMIENTO}}</td>
+                    <td style=" width: 9%;">{{data.TITULO_REQUERIMIENTO}}</td>
+                    <td>{{data.AREA_VALIDACION}}</td>
+                    <td>{{data.ESTADO}}</td>
+                    <td>{{data.FECHA_ENTREGA}}</td>
+                    <td style="width: 10%;">{{data.FECHA_FINALIZACION}}</td>
+                    <td style="width: 130px;">{{data.Area}}</td>
+                    <td style="width: 13%;">{{data.Nombres}} - {{data.Apellidos}} </td>
+                    <td style="flex: 0.5;" (click)="asignarResponsabl(content6,data)"><button pButton pRipple
+                            type="button" class="p-button-secondary p-button-text" style="height: 10px;"><i
+                                style="font-size: 10px;" class="fas fa-user-plus"></i></button></td>
+                </tr>
+            </ng-template>
+        </p-table>
+
+    </div>
+
+    <div class="y-card-footer" style="padding: 0px;">
+        <p-paginator [rows]="rows" [totalRecords]="totalRecords" (onPageChange)="paginador($event)"
+            [rowsPerPageOptions]="[5,10,20,30,50]"></p-paginator>
+    </div>
+</div>
+
+<ng-template #content5 let-c="close" let-d="dismiss">
+    <div class="modal-header">
+        <h4 class="modal-title" id="modal-basic-title">Nuevo Seguimiento</h4>
+        <button type="button" class="close" (click)="nuevo()" aria-label="Close" (click)="d('Cross click')"
+            class="btn btn-light" style="background: transparent; border: transparent;">
+            <i class="fas fa-times"></i>
+        </button>
+    </div>
+    <div class="modal-body">
+        <div class="row">
+            <div class="input-group mb-3">
+                <div class="col-md-5">
+                    <label id="documento" style="font-size: 12px; color: black;">Eps:</label>
+                    <select name="" class="form-control" id="documento" name="seguimiento.EPS"
+                        [(ngModel)]="seguimiento.EPS" style="font-size: 12px;">
+                        <option *ngFor='let prestador of prestador'>
+                            {{prestador.NOMBRE_OPCION}}
+                        </option>
+                    </select>
+                </div>
+                <div class="col-md-5" id="requerimiento">
+                    <label style="font-size: 12px; color: black;">Tipo de requerimiento</label>
+                    <select name="" class="form-control" id="documento" name="seguimiento.TIPO_REQUERIMIENTO"
+                        [(ngModel)]="seguimiento.TIPO_REQUERIMIENTO" style="font-size: 12px;">
+                        <option *ngFor='let tipoRequerimiento of tipoRequerimiento'>
+                            {{tipoRequerimiento.NOMBRE_OPCION}}
+                        </option>
+                    </select>
+                </div>
+            </div>
+            <div class="input-group mb-3">
+                <div class="col-md-5">
+                    <label style="font-size: 12px; color: black;">Medio</label>
+                    <select name="seguimiento.MEDIO" [(ngModel)]="seguimiento.MEDIO" class="form-control" id="documento"
+                        style="font-size: 12px;">
+                        <option *ngFor='let medio of medio'>
+                            {{medio.NOMBRE_OPCION}}
+                        </option>
+                    </select>
+                </div>
+
+                <div class="col-md-5" id="requerimiento">
+                    <label style="font-size: 12px; color: black;">Titulo</label>
+                    <input maxlength="50" type="text" class="form-control " id="documento"
+                        name="seguimiento.TITULO_REQUERIMIENTO" [(ngModel)]="seguimiento.TITULO_REQUERIMIENTO"
+                        style="font-size: 12px;">
+                </div>
+
+            </div>
+            <div class="input-group mb-3">
+                <div class="col-md-5">
+                    <label id="tipo" style="font-size: 12px; color: black;">Fecha de entrega:</label>
+                    <div class="input-group">
+                        <div class="input-group-prepend">
+                            <span [ngClass]="{'spanError': fechaEntregaAux == false }" style="height: 38px;"
+                                class="input-group-text"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16"
+                                    fill="currentColor" class="bi bi-calendar2-date" viewBox="0 0 16 16">
+                                    <path
+                                        d="M6.445 12.688V7.354h-.633A12.6 12.6 0 0 0 4.5 8.16v.695c.375-.257.969-.62 1.258-.777h.012v4.61h.675zm1.188-1.305c.047.64.594 1.406 1.703 1.406 1.258 0 2-1.066 2-2.871 0-1.934-.781-2.668-1.953-2.668-.926 0-1.797.672-1.797 1.809 0 1.16.824 1.77 1.676 1.77.746 0 1.23-.376 1.383-.79h.027c-.004 1.316-.461 2.164-1.305 2.164-.664 0-1.008-.45-1.05-.82h-.684zm2.953-2.317c0 .696-.559 1.18-1.184 1.18-.601 0-1.144-.383-1.144-1.2 0-.823.582-1.21 1.168-1.21.633 0 1.16.398 1.16 1.23z" />
+                                    <path
+                                        d="M3.5 0a.5.5 0 0 1 .5.5V1h8V.5a.5.5 0 0 1 1 0V1h1a2 2 0 0 1 2 2v11a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2V3a2 2 0 0 1 2-2h1V.5a.5.5 0 0 1 .5-.5zM2 2a1 1 0 0 0-1 1v11a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1V3a1 1 0 0 0-1-1H2z" />
+                                    <path
+                                        d="M2.5 4a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-.5.5H3a.5.5 0 0 1-.5-.5V4z" />
+                                </svg></span>
+                        </div>
+                        <input type="date" class="form-control" name="seguimiento.FECHA_ENTREGA"
+                            [(ngModel)]="seguimiento.FECHA_ENTREGA" style="font-size: 12px;"
+                            (change)="validacionFecha(seguimiento.FECHA_ENTREGA)"
+                            [ngClass]="{'is-invalid': fechaEntregaAux == false }"
+                            (change)="aprobarFecha(seguimiento.FECHA_ENTREGA)">
+                    </div>
+                </div>
+
+                <div class="col-md-5" id="requerimiento">
+                    <label id="tipo" style="font-size: 12px; color: black;">Fecha de finalizacion:</label>
+                    <div class="input-group">
+                        <div class="input-group-prepend">
+                            <span style="height: 38px;" class="input-group-text"><svg xmlns="http://www.w3.org/2000/svg"
+                                    width="16" height="16" fill="currentColor" class="bi bi-calendar2-date"
+                                    viewBox="0 0 16 16">
+                                    <path
+                                        d="M6.445 12.688V7.354h-.633A12.6 12.6 0 0 0 4.5 8.16v.695c.375-.257.969-.62 1.258-.777h.012v4.61h.675zm1.188-1.305c.047.64.594 1.406 1.703 1.406 1.258 0 2-1.066 2-2.871 0-1.934-.781-2.668-1.953-2.668-.926 0-1.797.672-1.797 1.809 0 1.16.824 1.77 1.676 1.77.746 0 1.23-.376 1.383-.79h.027c-.004 1.316-.461 2.164-1.305 2.164-.664 0-1.008-.45-1.05-.82h-.684zm2.953-2.317c0 .696-.559 1.18-1.184 1.18-.601 0-1.144-.383-1.144-1.2 0-.823.582-1.21 1.168-1.21.633 0 1.16.398 1.16 1.23z" />
+                                    <path
+                                        d="M3.5 0a.5.5 0 0 1 .5.5V1h8V.5a.5.5 0 0 1 1 0V1h1a2 2 0 0 1 2 2v11a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2V3a2 2 0 0 1 2-2h1V.5a.5.5 0 0 1 .5-.5zM2 2a1 1 0 0 0-1 1v11a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1V3a1 1 0 0 0-1-1H2z" />
+                                    <path
+                                        d="M2.5 4a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-.5.5H3a.5.5 0 0 1-.5-.5V4z" />
+                                </svg></span>
+                        </div>
+                        <input type="date" readonly="true" class="form-control" name="seguimiento.FECHA_FINALIZACION"
+                            [(ngModel)]="seguimiento.FECHA_FINALIZACION" style="font-size: 12px;">
+                    </div>
+                </div>
+            </div>
+            <div class="input-group mb-3">
+                <div class="col-md-5">
+                    <label style="font-size: 12px; color: black; margin-left: -21px;">Categoría</label>
+                    <select name="" class="form-control" id="documento" name="seguimiento.Categoria"
+                        [(ngModel)]="seguimiento.Categoria" style="font-size: 12px; margin-left: -21px;">
+                        <option *ngFor='let categoria of categoria'>
+                            {{categoria.NOMBRE_OPCION}}
+                        </option>
+                    </select>
+                </div>
+
+                <div class="col-md-2" id="">
+                    <label style="font-size: 12px; color: black; margin-left: 16px;">Área</label>
+                    <select name="" class="form-control" id="documento" name="seguimiento.ID_PERFIL"
+                        [(ngModel)]="seguimiento.ID_PERFIL" (click)="cargarResponsableSeguimiento()"
+                        style="font-size: 12px; margin-left: 16px;" [ngClass]="{'is-invalid': areaAux == false }"
+                        (change)="aprobarArea(seguimiento.ID_PERFIL)">
+                        <option *ngFor='let perfil of perfil' [ngValue]="perfil.ID_PERFIL">
+                            {{perfil.DESCRIPCION}}
+                        </option>
+                    </select>
+                </div>
+
+                <div class="col-md-3" id="">
+                    <label style="font-size: 12px; color: black; margin-left: 24px;">Responsable</label>
+                    <select name="" class="form-control" id="documento" name="seguimiento.ID_REGISTRO"
+                        [(ngModel)]="seguimiento.ID_REGISTRO" style="font-size: 12px; margin-left: 24px;">
+                        <option *ngFor='let responsableseguimiento of responsableseguimiento'
+                            [ngValue]="responsableseguimiento.Nombres" [ngValue]="responsableseguimiento.ID_REGISTRO">
+                            {{responsableseguimiento.Nombres}} - {{responsableseguimiento.Apellidos}}
+                        </option>
+                    </select>
+                </div>
+
+            </div>
+            <div class="input-group mb-3">
+                <div class="col-md-5">
+                    <label style="font-size: 12px; color: black;">Descripcion</label>
+                    <textarea name="seguimiento.DESCRIPCION_REQUERIMIENTO"
+                        [(ngModel)]="seguimiento.DESCRIPCION_REQUERIMIENTO" style="height: 50PX;" class="form-control"
+                        id="" cols="30" rows="10"></textarea>
+                </div>
+
+                <div class="col-md-5" id="requerimiento">
+                    <label style="font-size: 12px; color: black;">Área de validacion</label>
+                    <textarea name="seguimiento.AREA_VALIDACION" [(ngModel)]="seguimiento.AREA_VALIDACION"
+                        style="height: 50PX;" class="form-control" id="" cols="30" rows="10"></textarea>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+    <div class="modal-footer">
+        <button type="button" id="button" (click)="guardarDatos()" class="btn btn-primary" type="submit"><i
+                class="fas fa-save" style="color: white; font-size: 12px;"></i>
+            Guardar</button>
+
+        <button type="button" (click)="nuevo()" id="button" style="margin-left: -15px;" class="btn btn-secondary"> <i
+                class="fas fa-file-alt" style="font-size: 12px;"></i>
+            Nuevo</button>
+    </div>
+</ng-template>
+
+
+<ng-template #content let-c="close" let-d="dismiss">
+    <div class="modal-header">
+        <h4 class="modal-title" id="modal-basic-title">Estado del seguimiento</h4>
+        <button type="button" class="btn btn-light" style="background: transparent; border: transparent;"
+            aria-label="Close" (click)="d('Cross click')">
+            <i class="fas fa-times"></i>
+        </button>
+    </div>
+    <div class="modal-body">
+        <div class="row">
+            <div>
+                <label for="" class="form-label">Descripción:</label>
+                <textarea class="form-control" [disabled]="isReadonly" rows="3"
+                    name="seguimiento2.DESCRIPCION_REQUERIMIENTO"
+                    [(ngModel)]="seguimiento2.DESCRIPCION_REQUERIMIENTO"></textarea>
+            </div>
+            <div class="input-group mb-3" style="justify-content: space-between;margin-top: 5px;">
+                <div style="width : 32%;">
+                    <label for="">Area de validación:</label>
+                    <input type="text" [disabled]="isReadonly" class="form-control" name="seguimiento2.AREA_VALIDACION"
+                        [(ngModel)]="seguimiento2.AREA_VALIDACION">
+                </div>
+                <div style="width : 32%;">
+                    <label for="">Fecha de entrega:</label>
+                    <input type="date" [disabled]="isReadonly" class="form-control" name="seguimiento2.FECHA_ENTREGA"
+                        [(ngModel)]="seguimiento2.FECHA_ENTREGA">
+                </div>
+                <div style="width : 32%;">
+                    <label for="">Fecha de finalización:</label>
+                    <input type="date" [disabled]="isReadonly" class="form-control"
+                        name="seguimiento2.FECHA_FINALIZACION" [(ngModel)]="seguimiento2.FECHA_FINALIZACION">
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="modal-footer">
+        <button type="button" class="btn btn-primary" [disabled]="isReadonly" (click)="editarSeguimiento()"
+            (click)="c('Save click')"><i class="fas fa-save"></i> Modificar</button>
+    </div>
+</ng-template>
+
+
+<ng-template #content1 let-c="close" let-d="dismiss" id="pagina">
+    <div class="modal-body">
+        <form>
+            <div class="row">
+                <div class="col-md-12">
+                    <select name="" class="form-control" id="documento" name="EPS" [(ngModel)]="staticEPS"
+                        style="font-size: 12px;">
+                        <option *ngFor='let prestador of prestador'>
+                            {{prestador.NOMBRE_OPCION}}
+                        </option>
+                    </select>
+                </div>
+            </div>
+        </form>
+    </div>
+    <div class="modal-footer">
+        <button pButton pRipple type="button" icon="pi pi-check" class="p-button-rounded" (click)="CargarSeguimientos()"
+            (click)="d('Cross click')" style="margin-right: 4px;"></button>
+        <button pButton pRipple type="button" icon="pi pi-times" class="p-button-rounded p-button-danger"
+            (click)="limpiarFiltros()" (click)="d('Cross click')"></button>
+    </div>
+</ng-template>
+
+<ng-template #content2 let-c="close" let-d="dismiss" id="pagina">
+    <div class="modal-body">
+        <form>
+            <div class="row">
+                <div class="col-md-12">
+                    <select name="" class="form-control" id="documento" name="TIPO_REQUERIMIENTO"
+                        [(ngModel)]="staticTIPO_REQUERIMIENTO" style="font-size: 12px;">
+                        <option *ngFor='let tipoRequerimiento of tipoRequerimiento'>
+                            {{tipoRequerimiento.NOMBRE_OPCION}}
+                        </option>
+                    </select>
+                </div>
+            </div>
+        </form>
+    </div>
+    <div class="modal-footer">
+        <button pButton pRipple type="button" icon="pi pi-check" class="p-button-rounded" (click)="CargarSeguimientos()"
+            (click)="d('Cross click')" style="margin-right: 4px;"></button>
+        <button pButton pRipple type="button" icon="pi pi-times" class="p-button-rounded p-button-danger"
+            (click)="limpiarFiltros()" (click)="d('Cross click')"></button>
+    </div>
+</ng-template>
+
+<ng-template #content3 let-c="close" let-d="dismiss" id="pagina">
+    <div class="modal-body">
+        <form>
+            <div class="row">
+                <div class="col-md-12">
+                    <select name="" class="form-control" id="documento" name="ESTADO" [(ngModel)]="staticESTADO"
+                        style="font-size: 12px;">
+                        <option value="Pendiente">Pendiente</option>
+                        <option value="Realizado">Realizado</option>
+                        <option value="Sin asignar">Sin asignar</option>
+                        <option value="En proceso">En proceso</option>
+                    </select>
+                </div>
+            </div>
+        </form>
+    </div>
+    <div class="modal-footer">
+        <button pButton pRipple type="button" icon="pi pi-check" class="p-button-rounded" (click)="CargarSeguimientos()"
+            (click)="d('Cross click')" style="margin-right: 4px;"></button>
+        <button pButton pRipple type="button" icon="pi pi-times" class="p-button-rounded p-button-danger"
+            (click)="limpiarFiltros()" (click)="d('Cross click')"></button>
+    </div>
+</ng-template>
+
+<ng-template #content4 let-c="close" let-d="dismiss" id="pagina">
+    <div class="modal-body">
+        <form>
+            <div class="row">
+                <div class="col-md-12">
+                    <select name="" class="form-control" id="documento" name="ID_REGISTRO"
+                        [(ngModel)]="staticID_REGISTRO" style="font-size: 12px;">
+                        <option *ngFor='let responsableseguimiento of responsableseguimientofilt'
+                            [ngValue]="responsableseguimiento.Nombres" [ngValue]="responsableseguimiento.ID_REGISTRO">
+                            {{responsableseguimiento.Nombres}} - {{responsableseguimiento.Apellidos}}
+                        </option>
+                    </select>
+                </div>
+            </div>
+        </form>
+    </div>
+    <div class="modal-footer">
+        <button pButton pRipple type="button" icon="pi pi-check" class="p-button-rounded" (click)="CargarSeguimientos()"
+            (click)="cargarReporteCasosUsuarios()" (click)="d('Cross click')" style="margin-right: 4px;"></button>
+        <button pButton pRipple type="button" icon="pi pi-times" class="p-button-rounded p-button-danger"
+            (click)="limpiarFiltros()" (click)="d('Cross click')"></button>
+    </div>
+</ng-template>
+
+<ng-template #content6 let-c="close" let-d="dismiss" id="pagina">
+    <div class="modal-body">
+        <form>
+            <div class="row">
+                <div class="col-md-12">
+                    <select name="" class="form-control" id="documento" name="ID_REGISTRO1" [(ngModel)]="ID_REGISTRO1"
+                        style="font-size: 12px;">
+                        <option *ngFor='let responsableseguimiento2 of responsableseguimiento2'
+                            [ngValue]="responsableseguimiento2.Nombres" [ngValue]="responsableseguimiento2.ID_REGISTRO">
+                            {{responsableseguimiento2.Nombres}} - {{responsableseguimiento2.Apellidos}}
+                        </option>
+                    </select>
+                </div>
+            </div>
+        </form>
+    </div>
+    <div class="modal-footer">
+        <button pButton pRipple type="button" icon="pi pi-check" class="p-button-rounded" (click)="asignarResponsable()"
+            (click)="d('Cross click')" style="margin-right: 4px;"></button>
+        <button pButton pRipple type="button" icon="pi pi-times" class="p-button-rounded p-button-danger"
+            (click)="limpiarFiltros()" (click)="d('Cross click')"></button>
+    </div>
+</ng-template>
+
+<ng-template #content7 let-c="close" let-d="dismiss" id="pagina">
+    <div class="modal-body">
+        <form>
+            <div class="row">
+                <div class="col-md-12">
+                    <input type="date" class="form-control" id="documento" name="FECHA_FINALIZACION"
+                        [(ngModel)]="staticFECHA_FINALIZACION" style="font-size: 12px;">
+                </div>
+            </div>
+        </form>
+    </div>
+    <div class="modal-footer">
+        <button pButton pRipple type="button" icon="pi pi-check" class="p-button-rounded" (click)="CargarSeguimientos()"
+            (click)="d('Cross click')" style="margin-right: 4px;"></button>
+        <button pButton pRipple type="button" icon="pi pi-times" class="p-button-rounded p-button-danger"
+            (click)="limpiarFiltros()" (click)="d('Cross click')"></button>
+    </div>
+</ng-template>
+
+<ng-template #content8 let-c="close" let-d="dismiss" id="pagina">
+    <div class="modal-body">
+        <form>
+            <div class="row">
+                <div class="col-md-12">
+                    <input type="text" class="form-control" id="documento" name="TITULO_REQUERIMIENTO"
+                    style="font-size: 12px;" [(ngModel)]="stataticTITULO_REQUERIMIENTO">
+                </div>
+            </div>
+        </form>
+    </div>
+    <div class="modal-footer">
+        <button pButton pRipple type="button" icon="pi pi-check" class="p-button-rounded" (click)="CargarSeguimientos()"
+            (click)="d('Cross click')" style="margin-right: 4px;"></button>
+        <button pButton pRipple type="button" icon="pi pi-times" class="p-button-rounded p-button-danger"
+            (click)="limpiarFiltros()" (click)="d('Cross click')"></button>
+    </div>
+</ng-template>

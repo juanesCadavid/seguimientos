@@ -1,0 +1,10 @@
+<ngx-ui-loader></ngx-ui-loader>
+<div class="y-card" style="height: 100%;">
+  <div class="y-card-header">
+    <app-banner *ngIf='loginService.isloggedIn'></app-banner>
+    <app-navigation *ngIf='loginService.isloggedIn'></app-navigation>
+  </div>
+  <div class="y-card-body" style="overflow: hidden;">
+    <router-outlet></router-outlet>
+  </div>
+</div>
